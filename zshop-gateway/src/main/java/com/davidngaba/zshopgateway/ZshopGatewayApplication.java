@@ -13,10 +13,10 @@ public class ZshopGatewayApplication {
 		SpringApplication.run(ZshopGatewayApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	CommandLineRunner commandLineRunner(KafkaTemplate<String, String> kafkaTemplate){
 		return args -> {
 			kafkaTemplate.send("zshopuser","get-users");
 		};
-	}
+	}*/
 }

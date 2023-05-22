@@ -5,10 +5,11 @@ services:
     env_file:
       - ./zshop-user/.env
     ports:
-      - "5432:5432" # I have change port 5432 for 5433
+      - "5432:5432"
     volumes:
       - ./zshop-user/pgdata:/var/lib/postgresql/data
   zshop-gateway:
+    container_name: zshop-gateway
     image: zshop-gateway
     depends_on:
       - zookeeper-1
@@ -19,6 +20,7 @@ services:
     ports:
       - "9000:9000"
   zshop-user:
+    container_name: zshop-user
     image: zshop-user
     depends_on:
       - zshopuserpostgres
@@ -73,4 +75,5 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
 

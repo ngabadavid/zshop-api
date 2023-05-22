@@ -1,23 +1,47 @@
 package com.davidngaba.zshopgateway.controllers;
 
-import com.davidngaba.zshopgateway.models.ZshopUser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
+import com.davidngaba.zshopgateway.config.authentication.JwtAuthenticationService;
+import com.davidngaba.zshopgateway.models.AuthenticationRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
-@RequestMapping(path="api/v1")
-@AllArgsConstructor
+@RequestMapping(path="api/v1/gateway")
+@RequiredArgsConstructor
 public class ZshopGatewayController {
-    //private final RegistrationService registrationService;
-    private final KafkaTemplate<String, String> kafkaTemplate;
-    ObjectMapper objectMapper = new ObjectMapper();
+
+    //private final KafkaTemplate<String, String> kafkaTemplate;
+    //private final ObjectMapper objectMapper = new ObjectMapper();
+    private final AuthenticationManager authenticationManager;
+    private final UserDetailsService userDetailsService;
+    private final JwtAuthenticationService jwtAuthenticationService;
+
+    /*@Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }*/
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<String> authenticate(@RequestBody AuthenticationRequest request){
+        this.authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword())
+        );
+        final UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getUserName());
+        if(userDetails != null){
+            return ResponseEntity.ok(this.jwtAuthenticationService.generateToken(userDetails));
+        }
+        return ResponseEntity.status(400).body("Some error has occur");
+    }
+
+    /*@GetMapping("/home")
+    public String home(){
+        return "home";
+    }
 
     @GetMapping("/users")
     public List<ZshopUser> getUsers(){
@@ -32,13 +56,11 @@ public class ZshopGatewayController {
 
     @PostMapping
     public ZshopUser createUser(@RequestBody ZshopUser zshopUser){
-        /*zshopUser.setFirstName("test");
-        return zshopUser;*/
         try {
             kafkaTemplate.send("zshopuser", objectMapper.writeValueAsString(zshopUser));
             return zshopUser;
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 }
