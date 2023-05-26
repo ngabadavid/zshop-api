@@ -19,18 +19,30 @@ services:
     build: ./zshop-gateway
     ports:
       - "9000:9000"
-  zshop-user:
-    container_name: zshop-user
-    image: zshop-user
+  zshop-auth:
+    container_name: zshop-auth
+    image: zshop-auth
     depends_on:
       - zshopuserpostgres
       - zookeeper-1
       - zookeeper-2
       - kafka-1
       - kafka-2
-    build: ./zshop-user
+    build: ./zshop-auth
     ports:
-      - "10000:10000"
+      - "8000:8000"
+#  zshop-user:
+#    container_name: zshop-user
+#    image: zshop-user
+#    depends_on:
+#      - zshopuserpostgres
+#      - zookeeper-1
+#      - zookeeper-2
+#      - kafka-1
+#      - kafka-2
+#    build: ./zshop-user
+#    ports:
+#      - "10000:10000"
   zookeeper-1:
     image: confluentinc/cp-zookeeper:latest
     environment:

@@ -12,10 +12,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ZshopUserController {
     private final ZshopUserService zshopUserService;
-    @PostMapping
-    public void findByEmail(@RequestBody String username){
-        this.zshopUserService.findbyEmail(username);
-    }
+    //@PostMapping
+//    public void findByEmail(@RequestBody String username){
+//        this.zshopUserService.findbyEmail(username);
+//    }
    /* @GetMapping("/users")
     public List<ZshopUser> getUsers(){
         ZshopUser u1 = new ZshopUser(1L,"David","david@zshop.com");

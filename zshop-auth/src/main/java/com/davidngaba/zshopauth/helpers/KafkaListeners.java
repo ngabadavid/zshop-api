@@ -1,4 +1,4 @@
-package com.davidngaba.zshopuser.helpers;
+package com.davidngaba.zshopauth.helpers;
 
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class KafkaListeners {
 //    @KafkaListener(
-//            topics="zshopuser",
-//            groupId = "zshopuserGroupId"
+//            topics="zshopgateway",
+//            groupId = "zshopgatewayGroupId"
 //    )
 //    void listener(String data){
 //        System.out.println("Listener received: " + data);

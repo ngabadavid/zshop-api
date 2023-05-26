@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class KafkaListeners {
-    @KafkaListener(
-            topics="zshopgateway",
-            groupId = "zshopgatewayGroupId"
-    )
-    void listener(String data){
-        System.out.println("Listener received: " + data);
-    }
+//    @KafkaListener(
+//            topics="zshopgateway",
+//            groupId = "zshopgatewayGroupId"
+//    )
+//    void listener(String data){
+//        System.out.println("Listener received: " + data);
+//    }
 }

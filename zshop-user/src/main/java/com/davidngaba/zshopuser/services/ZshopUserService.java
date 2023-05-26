@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ZshopUserService {
-    private final KafkaTemplate<String, String> kafkaTemplate;
+   /* private final KafkaTemplate<String, String> kafkaTemplate;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final ZshopUserRepository zshopUserRepository;
 
@@ -27,5 +27,5 @@ public class ZshopUserService {
         }catch(JsonProcessingException jsonProcessingException){
             kafkaTemplate.send("zshopgateway","jsonProcessingException");
         }
-    }
+    }*/
 }

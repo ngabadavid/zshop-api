@@ -1,0 +1,7 @@
+Asynchronous Request-Response
+RequestReplyFuture<K,V,R> sendAndReceive(ProducerRecord<K,V> record);
+RequestReplyFuture<K,V,R> sendAndReceive(ProducerRecord<K,V> record, Duration replyTimeout);
+
+Synchronous Request-Response
+@kafkaListener
+@SendTo
