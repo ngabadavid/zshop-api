@@ -21,7 +21,7 @@ public class KafkaConsumerConfig {
     public Map<String, Object> consumerConfig(){
         HashMap<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "zpost-auth-groupid");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "zshop-auth-groupid");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         return props;

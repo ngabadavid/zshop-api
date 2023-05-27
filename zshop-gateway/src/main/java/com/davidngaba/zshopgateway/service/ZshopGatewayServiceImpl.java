@@ -21,14 +21,11 @@ import java.util.concurrent.TimeoutException;
 @Service
 @RequiredArgsConstructor
 public class ZshopGatewayServiceImpl implements ZshopGatewayService {
-
-    //private final KafkaTemplate kafkaTemplate;
     private final ReplyingKafkaTemplate<String, String, String> replyingKafkaTemplate;
     private final ObjectMapper objectMapper = new ObjectMapper();
     @Override
     public String authenticate(AuthenticationRequest authenticationRequest) {
         ProducerRecord<String, String> record = new ProducerRecord<>("zshop-auth-requests","authenticate", "authenticate");
-        //record.headers().add(new RecordHeader(KafkaHeaders.REPLY_TOPIC, "zshop-gateway-replies".getBytes()));
         RequestReplyFuture<String, String, String> replyFuture = replyingKafkaTemplate.sendAndReceive(record);
         String test = "init";
         try {
@@ -41,20 +38,6 @@ public class ZshopGatewayServiceImpl implements ZshopGatewayService {
         } catch (TimeoutException e) {
             throw new RuntimeException(e);
         }
-//        try {
-//            SendResult<String, String> sendResult = replyFuture.getSendFuture().get(5, TimeUnit.SECONDS);
-//            System.out.println("gateway service Sent ok: " + sendResult.getRecordMetadata());
-//
-//            ConsumerRecord<String, String> consumerRecord = replyFuture.get(5, TimeUnit.SECONDS);
-//            System.out.println("gateway service Return value: " + consumerRecord.value());
-//            return consumerRecord.value();
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        } catch (ExecutionException e) {
-//            throw new RuntimeException(e);
-//        } catch (TimeoutException e) {
-//            throw new RuntimeException(e);
-//        }
         return test;
     }
 }
